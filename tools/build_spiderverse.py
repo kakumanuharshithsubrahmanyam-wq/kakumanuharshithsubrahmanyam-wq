@@ -73,25 +73,25 @@ def web_paths(cx: float = 600, cy: float = 300, scale: float = 1.0) -> str:
 </g>'''
 
 
-def skyline(y: float = 380, width: float = 1180) -> str:
-    # Simplified NYC-inspired silhouette
+def skyline(y: float = 380, width: float = 620) -> str:
+    """NYC silhouette under the typography column only — never crosses the portrait."""
     return f'''<g fill="#0b1d3a" opacity="0.95">
-  <path d="M0 {y+80}V{y}h30v-30h22v40h24V{y-50}h18v-20h12v20h16v50h26v-70h20v-18h10v18h20v70h28v-45h30v-38h18v83h26V{y-70}h22V{y-95}h8V{y-110}h4v15h8v25h22v70h30v-40h22v-30h26v70h22V{y-60}h18v50h30v-85h14v-16h6v16h14v85h26v-45h30v55h22v-70h30v-22h18v92h28v-40h22v-30h22v70h30V{y-80}h14V{y-100}h8v20h14v80h22v-40h30v{y+80-y+40}H0z"/>
+  <path d="M0 {y+80}V{y}h30v-30h22v40h24V{y-50}h18v-20h12v20h16v50h26v-70h20v-18h10v18h20v70h28v-45h30v-38h18v83h26V{y-70}h22V{y-95}h8V{y-110}h4v15h8v25h22v70h30v-40h22v-30h26v70h22V{y-60}h18v50h30v-85h14v-16h6v16h14v85h26v-45h30v55h22v-70h30v-22h18v92h28v-40h22v{y+80-(y-40)}H0z"/>
 </g>
 <line x1="0" y1="{y+74}" x2="{width}" y2="{y+74}" stroke="{RED}" stroke-width="2"/>'''
 
 
 def recolor_portrait() -> None:
-    """Keep approved glyphs; switch wash to Spider-Verse blue/red cinematic lighting."""
+    """Keep approved glyphs; lift midtones so glasses/hair/smile stay readable."""
     src = ASSETS / "ascii-portrait.svg"
     s = src.read_text()
-    # Replace gradient stops
+    # Soft frost wash — enough lift for detail without blowing out facial glyphs.
     s = re.sub(
         r'<linearGradient id="apg"[^>]*>.*?</linearGradient>',
         f'''<linearGradient id="apg" gradientUnits="userSpaceOnUse" x1="10" y1="10" x2="1215" y2="1342">
-<stop offset="0" stop-color="{BLUE}"/>
-<stop offset=".45" stop-color="{WHITE}"/>
-<stop offset="1" stop-color="{RED}"/>
+<stop offset="0" stop-color="#d4eeff"/>
+<stop offset=".4" stop-color="#ffffff"/>
+<stop offset="1" stop-color="#ffcdd0"/>
 </linearGradient>''',
         s,
         count=1,
@@ -123,17 +123,21 @@ def extract_portrait_glyphs(portrait_svg: str):
 def build_hero() -> None:
     portrait = (ASSETS / "ascii-portrait.svg").read_text()
     src_w, src_h, src_font, rows = extract_portrait_glyphs(portrait)
-    width, height = 1180, 640
-    # Right panel for portrait
-    pad_x, pad_y = 620, 70
-    avail_w, avail_h = 520, 520
-    scale = min(avail_w / src_w, avail_h / src_h)
+    # Flush canvas (no letterbox). Visual nav lives inside the hero.
+    width, height = 1180, 600
+    # Near-full-height panel; slight top inset keeps H/SK + labels clear.
+    panel_x, panel_y = 640, 40
+    panel_w, panel_h = 500, 540
+    pad_x, pad_y = panel_x + 8, panel_y + 4
+    avail_w, avail_h = panel_w - 16, panel_h - 8
+    # Fill the frame; bias upward so bust isn't cropped and headroom shrinks.
+    scale = min(avail_w / src_w, avail_h / src_h) * 1.08
     font_size = src_font * scale
     offset_x = pad_x + (avail_w - src_w * scale) / 2
-    offset_y = pad_y + (avail_h - src_h * scale) / 2
+    offset_y = pad_y + (avail_h - src_h * scale) / 2 - 18
 
     glyphs = []
-    for i, row in enumerate(rows):
+    for row in rows:
         x = offset_x + row["x"] * scale
         y = offset_y + row["y"] * scale
         tl = row["text_length"] * scale
@@ -148,57 +152,80 @@ def build_hero() -> None:
 {FONT_CSS}
 </style>
 <defs>
-  <linearGradient id="bg" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#040c18"/><stop offset=".55" stop-color="{NAVY}"/><stop offset="1" stop-color="{MID}"/>
+  <linearGradient id="bg" x1="0" y1="0" x2="0.85" y2="1">
+    <stop offset="0" stop-color="#071426"/><stop offset=".55" stop-color="{NAVY}"/><stop offset="1" stop-color="{MID}"/>
   </linearGradient>
-  <radialGradient id="glowB" cx="78%" cy="40%" r="55%"><stop offset="0" stop-color="{BLUE}" stop-opacity=".35"/><stop offset="1" stop-color="{BLUE}" stop-opacity="0"/></radialGradient>
-  <radialGradient id="glowR" cx="96%" cy="85%" r="50%"><stop offset="0" stop-color="{RED}" stop-opacity=".38"/><stop offset="1" stop-color="{RED}" stop-opacity="0"/></radialGradient>
+  <radialGradient id="glowB" cx="78%" cy="36%" r="52%"><stop offset="0" stop-color="{BLUE}" stop-opacity=".28"/><stop offset="1" stop-color="{BLUE}" stop-opacity="0"/></radialGradient>
+  <radialGradient id="glowR" cx="94%" cy="88%" r="48%"><stop offset="0" stop-color="{RED}" stop-opacity=".26"/><stop offset="1" stop-color="{RED}" stop-opacity="0"/></radialGradient>
+  <radialGradient id="faceLift" cx="46%" cy="30%" r="64%">
+    <stop offset="0" stop-color="#ffffff" stop-opacity=".62"/>
+    <stop offset=".35" stop-color="#d7ebff" stop-opacity=".38"/>
+    <stop offset=".7" stop-color="#3d6aa0" stop-opacity=".18"/>
+    <stop offset="1" stop-color="#1a3358" stop-opacity="0"/>
+  </radialGradient>
   <linearGradient id="sur" x1="0" y1="0" x2="1" y2="0">
-    <stop offset=".1" stop-color="{RED}"/><stop offset=".45" stop-color="#ff6a6e"/><stop offset=".95" stop-color="{BLUE}"/>
+    <stop offset=".08" stop-color="{RED}"/><stop offset=".48" stop-color="#ff7a7e"/><stop offset=".95" stop-color="{BLUE}"/>
   </linearGradient>
   <linearGradient id="port" gradientUnits="userSpaceOnUse" x1="{offset_x:.1f}" y1="{offset_y:.1f}" x2="{offset_x + src_w * scale:.1f}" y2="{offset_y + src_h * scale:.1f}">
-    <stop offset="0" stop-color="{BLUE}"/><stop offset=".5" stop-color="{WHITE}"/><stop offset="1" stop-color="{RED}"/>
+    <stop offset="0" stop-color="#d4eeff"/>
+    <stop offset=".4" stop-color="#ffffff"/>
+    <stop offset="1" stop-color="#ffcdd0"/>
   </linearGradient>
-  <clipPath id="pslot"><polygon points="640,70 1140,70 1140,590 620,590 620,120"/></clipPath>
+  <linearGradient id="panelEdge" x1="0" y1="0" x2="1" y2="1">
+    <stop offset="0" stop-color="#2c4a78"/><stop offset="1" stop-color="#1a3358"/>
+  </linearGradient>
+  <clipPath id="pslot"><rect x="{panel_x}" y="{panel_y}" width="{panel_w}" height="{panel_h}" rx="4"/></clipPath>
 </defs>
 <rect width="{width}" height="{height}" fill="url(#bg)"/>
 <rect width="{width}" height="{height}" fill="url(#glowB)"/>
 <rect width="{width}" height="{height}" fill="url(#glowR)"/>
-<!-- web -->
-<g opacity="0.4" transform="translate(200 -40)">{web_paths(900, 200, 0.85)}</g>
-<!-- letterbox bars -->
-<rect x="0" y="0" width="{width}" height="18" fill="#02070f"/>
-<rect x="0" y="{height - 18}" width="{width}" height="18" fill="#02070f"/>
-{skyline(520, width)}
+<!-- web (no letterbox bars) -->
+<g opacity="0.32" transform="translate(220 -20)">{web_paths(900, 200, 0.85)}</g>
+{skyline(470, 620)}
 <!-- particles -->
-<circle cx="140" cy="150" r="2" fill="{WHITE}" opacity=".55"/>
-<circle cx="520" cy="110" r="1.5" fill="{WHITE}" opacity=".45"/>
-<circle cx="880" cy="420" r="2.5" fill="{BLUE}" opacity=".55"/>
-<!-- left copy -->
-<text x="48" y="78" font-family="'JetBrains Mono', monospace" font-size="11" letter-spacing="3" fill="{MUTED}"><tspan fill="{RED}">●</tspan> TITLE SEQUENCE · SCENE 01</text>
-<line x1="48" y1="108" x2="92" y2="108" stroke="{RED}" stroke-width="2"/>
-<text x="104" y="112" font-family="'JetBrains Mono', monospace" font-size="12" letter-spacing="3.2" fill="{BLUE}">CYBERSECURITY &amp; AI/ML ENGINEER</text>
-<text x="48" y="210" font-family="'Bebas Neue', Impact, sans-serif" font-size="78" letter-spacing="1" fill="{WHITE}" style="text-shadow:3px 0 0 rgba(230,36,41,.65),-3px 0 0 rgba(22,139,255,.65)">HARSHITH</text>
-<text x="48" y="288" font-family="'Bebas Neue', Impact, sans-serif" font-size="78" letter-spacing="1" fill="{WHITE}">SUBRAHMANYAM</text>
-<text x="48" y="368" font-family="'Playfair Display', Georgia, serif" font-style="italic" font-weight="800" font-size="64" fill="url(#sur)">Kakumanu</text>
-<text x="48" y="420" font-family="'Space Grotesk', system-ui, sans-serif" font-size="16" fill="#cdd8e8">Building at the intersection of cryptography,</text>
-<text x="48" y="444" font-family="'Space Grotesk', system-ui, sans-serif" font-size="16" fill="#cdd8e8">AI/ML and full-stack security engineering.</text>
-<!-- CTA chips (visual only; links live in README) -->
-<polygon points="48,480 168,480 160,514 40,514" fill="{RED}"/>
-<text x="64" y="504" font-family="'JetBrains Mono', monospace" font-size="12" letter-spacing="1.5" fill="{WHITE}">GITHUB →</text>
+<circle cx="150" cy="160" r="2" fill="{WHITE}" opacity=".5"/>
+<circle cx="500" cy="120" r="1.5" fill="{WHITE}" opacity=".4"/>
+<circle cx="860" cy="400" r="2.5" fill="{BLUE}" opacity=".5"/>
+<!-- integrated nav / branding -->
+<text x="40" y="34" font-family="'Bebas Neue', Impact, sans-serif" font-size="24" letter-spacing="2" fill="{WHITE}">H<tspan fill="{RED}">/</tspan>SK</text>
+<text x="742" y="32" font-family="'JetBrains Mono', monospace" font-size="11" letter-spacing="2.4" fill="{MUTED}">ORIGIN</text>
+<text x="848" y="32" font-family="'JetBrains Mono', monospace" font-size="11" letter-spacing="2.4" fill="{MUTED}">POWERS</text>
+<text x="956" y="32" font-family="'JetBrains Mono', monospace" font-size="11" letter-spacing="2.4" fill="{MUTED}">MULTIVERSE</text>
+<text x="1090" y="32" font-family="'JetBrains Mono', monospace" font-size="11" letter-spacing="2.4" fill="{MUTED}">ACTIVITY</text>
+<line x1="40" y1="44" x2="1140" y2="44" stroke="{WHITE}" stroke-opacity="0.08"/>
+<!-- left copy — tighter rhythm -->
+<text x="40" y="74" font-family="'JetBrains Mono', monospace" font-size="11" letter-spacing="2.8" fill="{MUTED}"><tspan fill="{RED}">●</tspan> TITLE SEQUENCE · SCENE 01</text>
+<line x1="40" y1="92" x2="84" y2="92" stroke="{RED}" stroke-width="2"/>
+<text x="96" y="96" font-family="'JetBrains Mono', monospace" font-size="12" letter-spacing="2.8" fill="{BLUE}">CYBERSECURITY &amp; AI/ML ENGINEER</text>
+<!-- Glitch name via offset duplicates (SVG text-shadow is unreliable on GitHub) -->
+<text x="43" y="182" font-family="'Bebas Neue', Impact, sans-serif" font-size="78" letter-spacing="1" fill="{RED}" opacity="0.55">HARSHITH</text>
+<text x="37" y="182" font-family="'Bebas Neue', Impact, sans-serif" font-size="78" letter-spacing="1" fill="{BLUE}" opacity="0.55">HARSHITH</text>
+<text x="40" y="182" font-family="'Bebas Neue', Impact, sans-serif" font-size="78" letter-spacing="1" fill="{WHITE}">HARSHITH</text>
+<text x="43" y="258" font-family="'Bebas Neue', Impact, sans-serif" font-size="78" letter-spacing="1" fill="{RED}" opacity="0.45">SUBRAHMANYAM</text>
+<text x="37" y="258" font-family="'Bebas Neue', Impact, sans-serif" font-size="78" letter-spacing="1" fill="{BLUE}" opacity="0.45">SUBRAHMANYAM</text>
+<text x="40" y="258" font-family="'Bebas Neue', Impact, sans-serif" font-size="78" letter-spacing="1" fill="{WHITE}">SUBRAHMANYAM</text>
+<text x="40" y="332" font-family="'Playfair Display', Georgia, serif" font-style="italic" font-weight="800" font-size="56" fill="url(#sur)">Kakumanu</text>
+<text x="40" y="380" font-family="'Space Grotesk', system-ui, sans-serif" font-size="15" fill="#dce6f4">Building at the intersection of cryptography,</text>
+<text x="40" y="402" font-family="'Space Grotesk', system-ui, sans-serif" font-size="15" fill="#dce6f4">AI/ML and full-stack security engineering.</text>
+<polygon points="40,434 158,434 150,466 32,466" fill="{RED}"/>
+<text x="54" y="456" font-family="'JetBrains Mono', monospace" font-size="12" letter-spacing="1.5" fill="{WHITE}">GITHUB →</text>
 <!-- portrait frame -->
+<rect x="{panel_x}" y="{panel_y}" width="{panel_w}" height="{panel_h}" rx="4" fill="url(#panelEdge)"/>
 <g clip-path="url(#pslot)">
-  <rect x="620" y="70" width="520" height="520" fill="#050d1a"/>
+  <rect x="{panel_x}" y="{panel_y}" width="{panel_w}" height="{panel_h}" fill="#2c4a78"/>
+  <rect x="{panel_x}" y="{panel_y}" width="{panel_w}" height="{panel_h}" fill="url(#faceLift)"/>
   <g fill="url(#port)" font-size="{font_size:.3f}" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
 {chr(10).join(glyphs)}
   </g>
-  <!-- cinematic lighting washes -->
-  <rect x="620" y="70" width="520" height="520" fill="{BLUE}" opacity="0.18" style="mix-blend-mode:color"/>
-  <rect x="620" y="70" width="520" height="520" fill="{RED}" opacity="0.12" style="mix-blend-mode:color"/>
+  <!-- soft cinematic edge light — no darkening blend modes -->
+  <rect x="{panel_x}" y="{panel_y}" width="14" height="{panel_h}" fill="{BLUE}" opacity="0.12"/>
+  <rect x="{panel_x + panel_w - 14}" y="{panel_y}" width="14" height="{panel_h}" fill="{RED}" opacity="0.10"/>
 </g>
-<!-- rim accents -->
-<rect x="620" y="70" width="6" height="520" fill="{BLUE}" opacity="0.85"/>
-<rect x="1134" y="70" width="6" height="520" fill="{RED}" opacity="0.85"/>
+<!-- rim accents (blue left / red right) -->
+<rect x="{panel_x}" y="{panel_y}" width="5" height="{panel_h}" fill="{BLUE}" opacity="0.95"/>
+<rect x="{panel_x + panel_w - 5}" y="{panel_y}" width="5" height="{panel_h}" fill="{RED}" opacity="0.95"/>
+<rect x="{panel_x}" y="{panel_y}" width="{panel_w}" height="3" fill="{BLUE}" opacity="0.55"/>
+<rect x="{panel_x}" y="{panel_y + panel_h - 3}" width="{panel_w}" height="3" fill="{RED}" opacity="0.45"/>
 </svg>'''
     write(ASSETS / "hero.svg", svg)
 
