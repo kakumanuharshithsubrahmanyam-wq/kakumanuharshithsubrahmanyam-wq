@@ -2,7 +2,7 @@
 """Generate Spider-Verse themed GitHub profile SVG assets.
 
 Uses verified repository metadata only. AstraSOC stays labelled PRIVATE.
-The approved ASCII portrait glyphs are preserved; only the colour wash changes.
+Hero portrait is the real photo cutout (assets/portrait.png), not ASCII.
 """
 
 from __future__ import annotations
@@ -81,72 +81,34 @@ def skyline(y: float = 380, width: float = 620) -> str:
 <line x1="0" y1="{y+74}" x2="{width}" y2="{y+74}" stroke="{RED}" stroke-width="2"/>'''
 
 
-def recolor_portrait() -> None:
-    """Keep approved glyphs; lift midtones so glasses/hair/smile stay readable."""
-    src = ASSETS / "ascii-portrait.svg"
-    s = src.read_text()
-    # Soft frost wash — enough lift for detail without blowing out facial glyphs.
-    s = re.sub(
-        r'<linearGradient id="apg"[^>]*>.*?</linearGradient>',
-        f'''<linearGradient id="apg" gradientUnits="userSpaceOnUse" x1="10" y1="10" x2="1215" y2="1342">
-<stop offset="0" stop-color="#d4eeff"/>
-<stop offset=".4" stop-color="#ffffff"/>
-<stop offset="1" stop-color="#ffcdd0"/>
-</linearGradient>''',
-        s,
-        count=1,
-        flags=re.S,
-    )
-    write(src, s)
+def portrait_data_uri() -> tuple[str, int, int]:
+    """Load the transparent photo cutout for embedding in hero.svg."""
+    from PIL import Image
 
-
-def extract_portrait_glyphs(portrait_svg: str):
-    view = re.search(r'viewBox="0 0 ([0-9.]+) ([0-9.]+)"', portrait_svg)
-    src_w, src_h = float(view.group(1)), float(view.group(2))
-    font = re.search(r'font-size="([0-9.]+)"', portrait_svg)
-    src_font = float(font.group(1)) if font else 7.2
-    rows = []
-    for m in re.finditer(
-        r'x="([^"]+)" y="([^"]+)" textLength="([^"]+)"[^>]*>(.*?)</text>',
-        portrait_svg,
-        flags=re.S,
-    ):
-        rows.append({
-            "x": float(m.group(1)),
-            "y": float(m.group(2)),
-            "text_length": float(m.group(3)),
-            "line": m.group(4),
-        })
-    return src_w, src_h, src_font, rows
+    path = ASSETS / "portrait.png"
+    if not path.exists():
+        raise SystemExit("assets/portrait.png missing — run Segment cutout first")
+    with Image.open(path) as im:
+        w, h = im.size
+    payload = base64.b64encode(path.read_bytes()).decode("ascii")
+    return f"data:image/png;base64,{payload}", w, h
 
 
 def build_hero() -> None:
-    portrait = (ASSETS / "ascii-portrait.svg").read_text()
-    src_w, src_h, src_font, rows = extract_portrait_glyphs(portrait)
-    # Flush canvas (no letterbox). Visual nav lives inside the hero.
+    """Hero with real photo cutout (no ASCII). Natural fit — not zoomed."""
+    data_uri, src_w, src_h = portrait_data_uri()
     width, height = 1180, 600
-    # Near-full-height panel; slight top inset keeps H/SK + labels clear.
     panel_x, panel_y = 640, 40
     panel_w, panel_h = 500, 540
-    pad_x, pad_y = panel_x + 8, panel_y + 4
-    avail_w, avail_h = panel_w - 16, panel_h - 8
-    # Fill the frame; bias upward so bust isn't cropped and headroom shrinks.
-    scale = min(avail_w / src_w, avail_h / src_h) * 1.08
-    font_size = src_font * scale
-    offset_x = pad_x + (avail_w - src_w * scale) / 2
-    offset_y = pad_y + (avail_h - src_h * scale) / 2 - 18
+    # Comfortable inset so the bust isn't cropped or over-zoomed.
+    pad = 28
+    avail_w, avail_h = panel_w - pad * 2, panel_h - pad * 2
+    scale = min(avail_w / src_w, avail_h / src_h) * 0.92
+    img_w, img_h = src_w * scale, src_h * scale
+    img_x = panel_x + (panel_w - img_w) / 2
+    img_y = panel_y + (panel_h - img_h) / 2 + 8
 
-    glyphs = []
-    for row in rows:
-        x = offset_x + row["x"] * scale
-        y = offset_y + row["y"] * scale
-        tl = row["text_length"] * scale
-        glyphs.append(
-            f'<text xml:space="preserve" x="{x:.2f}" y="{y:.2f}" '
-            f'textLength="{tl:.2f}" lengthAdjust="spacing">{row["line"]}</text>'
-        )
-
-    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-label="Harshith Subrahmanyam Kakumanu — Cybersecurity and AI/ML Engineer">
+    svg = f'''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-label="Harshith Subrahmanyam Kakumanu — Cybersecurity and AI/ML Engineer">
 <title>Harshith Subrahmanyam Kakumanu — Spider-Verse profile hero</title>
 <style>
 {FONT_CSS}
@@ -157,22 +119,15 @@ def build_hero() -> None:
   </linearGradient>
   <radialGradient id="glowB" cx="78%" cy="36%" r="52%"><stop offset="0" stop-color="{BLUE}" stop-opacity=".28"/><stop offset="1" stop-color="{BLUE}" stop-opacity="0"/></radialGradient>
   <radialGradient id="glowR" cx="94%" cy="88%" r="48%"><stop offset="0" stop-color="{RED}" stop-opacity=".26"/><stop offset="1" stop-color="{RED}" stop-opacity="0"/></radialGradient>
-  <radialGradient id="faceLift" cx="46%" cy="30%" r="64%">
-    <stop offset="0" stop-color="#ffffff" stop-opacity=".62"/>
-    <stop offset=".35" stop-color="#d7ebff" stop-opacity=".38"/>
-    <stop offset=".7" stop-color="#3d6aa0" stop-opacity=".18"/>
-    <stop offset="1" stop-color="#1a3358" stop-opacity="0"/>
+  <radialGradient id="stage" cx="50%" cy="42%" r="62%">
+    <stop offset="0" stop-color="#1a3a62" stop-opacity="1"/>
+    <stop offset="1" stop-color="#0c1c34" stop-opacity="1"/>
   </radialGradient>
   <linearGradient id="sur" x1="0" y1="0" x2="1" y2="0">
     <stop offset=".08" stop-color="{RED}"/><stop offset=".48" stop-color="#ff7a7e"/><stop offset=".95" stop-color="{BLUE}"/>
   </linearGradient>
-  <linearGradient id="port" gradientUnits="userSpaceOnUse" x1="{offset_x:.1f}" y1="{offset_y:.1f}" x2="{offset_x + src_w * scale:.1f}" y2="{offset_y + src_h * scale:.1f}">
-    <stop offset="0" stop-color="#d4eeff"/>
-    <stop offset=".4" stop-color="#ffffff"/>
-    <stop offset="1" stop-color="#ffcdd0"/>
-  </linearGradient>
   <linearGradient id="panelEdge" x1="0" y1="0" x2="1" y2="1">
-    <stop offset="0" stop-color="#2c4a78"/><stop offset="1" stop-color="#1a3358"/>
+    <stop offset="0" stop-color="#2a4a78"/><stop offset="1" stop-color="#142840"/>
   </linearGradient>
   <clipPath id="pslot"><rect x="{panel_x}" y="{panel_y}" width="{panel_w}" height="{panel_h}" rx="4"/></clipPath>
 </defs>
@@ -209,15 +164,11 @@ def build_hero() -> None:
 <text x="40" y="402" font-family="'Space Grotesk', system-ui, sans-serif" font-size="15" fill="#dce6f4">AI/ML and full-stack security engineering.</text>
 <polygon points="40,434 158,434 150,466 32,466" fill="{RED}"/>
 <text x="54" y="456" font-family="'JetBrains Mono', monospace" font-size="12" letter-spacing="1.5" fill="{WHITE}">GITHUB →</text>
-<!-- portrait frame -->
+<!-- portrait frame — real photo cutout, transparent background -->
 <rect x="{panel_x}" y="{panel_y}" width="{panel_w}" height="{panel_h}" rx="4" fill="url(#panelEdge)"/>
 <g clip-path="url(#pslot)">
-  <rect x="{panel_x}" y="{panel_y}" width="{panel_w}" height="{panel_h}" fill="#2c4a78"/>
-  <rect x="{panel_x}" y="{panel_y}" width="{panel_w}" height="{panel_h}" fill="url(#faceLift)"/>
-  <g fill="url(#port)" font-size="{font_size:.3f}" font-family="ui-monospace, SFMono-Regular, Menlo, Consolas, monospace">
-{chr(10).join(glyphs)}
-  </g>
-  <!-- soft cinematic edge light — no darkening blend modes -->
+  <rect x="{panel_x}" y="{panel_y}" width="{panel_w}" height="{panel_h}" fill="url(#stage)"/>
+  <image href="{data_uri}" xlink:href="{data_uri}" x="{img_x:.1f}" y="{img_y:.1f}" width="{img_w:.1f}" height="{img_h:.1f}" preserveAspectRatio="xMidYMid meet"/>
   <rect x="{panel_x}" y="{panel_y}" width="14" height="{panel_h}" fill="{BLUE}" opacity="0.12"/>
   <rect x="{panel_x + panel_w - 14}" y="{panel_y}" width="14" height="{panel_h}" fill="{RED}" opacity="0.10"/>
 </g>
@@ -635,7 +586,6 @@ def build_projects_banner() -> None:
 
 
 def main() -> None:
-    recolor_portrait()
     build_nav()
     build_hero()
     build_origin()
