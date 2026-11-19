@@ -3,7 +3,7 @@
 
 <!-- Hero first — no letterboxed nav strip above -->
 <div align="center">
-  <img src="assets/hero.svg?v=4" alt="Harshith Subrahmanyam Kakumanu — Cybersecurity and AI/ML Engineer" width="100%" />
+  <img src="assets/hero.svg?v=6" alt="Harshith Subrahmanyam Kakumanu — Cybersecurity and AI/ML Engineer" width="100%" />
 </div>
 
 <!-- Clickable anchors + identity badges sit flush under the hero -->

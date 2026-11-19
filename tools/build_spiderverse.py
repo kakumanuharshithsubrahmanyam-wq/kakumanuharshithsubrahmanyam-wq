@@ -95,18 +95,28 @@ def portrait_data_uri() -> tuple[str, int, int]:
 
 
 def build_hero() -> None:
-    """Hero with real photo cutout (no ASCII). Natural fit — not zoomed."""
+    """Hero with real photo cutout (no ASCII). Frame matches portrait aspect."""
     data_uri, src_w, src_h = portrait_data_uri()
     width, height = 1180, 600
-    panel_x, panel_y = 640, 40
-    panel_w, panel_h = 500, 540
-    # Comfortable inset so the bust isn't cropped or over-zoomed.
-    pad = 28
+    # Right column slot; frame aspect tracks the cutout so the photo fills it.
+    slot_x, slot_y = 640, 36
+    slot_w, slot_h = 500, 548
+    aspect = src_w / src_h
+    # Prefer full height; shrink width to portrait aspect and center in the slot.
+    panel_h = slot_h
+    panel_w = min(slot_w, panel_h * aspect)
+    if panel_w / panel_h < aspect:
+        panel_w = slot_w
+        panel_h = panel_w / aspect
+    panel_x = slot_x + (slot_w - panel_w) / 2
+    panel_y = slot_y + (slot_h - panel_h) / 2
+    # Near-flush fit inside the rim (2px breathing room).
+    pad = 2
     avail_w, avail_h = panel_w - pad * 2, panel_h - pad * 2
-    scale = min(avail_w / src_w, avail_h / src_h) * 0.92
+    scale = min(avail_w / src_w, avail_h / src_h)
     img_w, img_h = src_w * scale, src_h * scale
     img_x = panel_x + (panel_w - img_w) / 2
-    img_y = panel_y + (panel_h - img_h) / 2 + 8
+    img_y = panel_y + (panel_h - img_h) / 2
 
     svg = f'''<svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="{width}" height="{height}" viewBox="0 0 {width} {height}" role="img" aria-label="Harshith Subrahmanyam Kakumanu — Cybersecurity and AI/ML Engineer">
 <title>Harshith Subrahmanyam Kakumanu — Spider-Verse profile hero</title>
