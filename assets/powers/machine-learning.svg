@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="360" height="260" viewBox="0 0 360 260" role="img" aria-label="Machine Learning">
+<title>Machine Learning</title>
+<style>text,tspan{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.display{font-family:Impact,Haettenschweiler,Arial Narrow Bold,sans-serif}.serif{font-family:Georgia,'Times New Roman',serif;font-style:italic}</style>
+<defs><clipPath id="c"><polygon points="0,0 334,0 360,26 360,260 0,260"/></clipPath></defs>
+<rect width="360" height="260" fill="#071426"/>
+<g clip-path="url(#c)">
+  <rect width="360" height="260" fill="#102A50" fill-opacity="0.55"/>
+  <rect width="360" height="3" fill="#7047D7"/>
+  <text class="mono" x="24" y="36" font-size="11" letter-spacing="2" fill="#7047D7">PWR—03</text>
+  <g transform="translate(24 48)" stroke="#7047D7" fill="none" stroke-width="2.4"><circle cx="10" cy="12" r="4"/><circle cx="10" cy="36" r="4"/><circle cx="38" cy="24" r="4"/><circle cx="24" cy="24" r="4"/><path d="M14 12l6 10M14 36l6-10M28 24h6"/></g>
+  <text class="display" x="24" y="130" font-size="34" fill="#F5F7FA">Machine Learning</text>
+  <text x="24" y="160" font-size="13" fill="#9fb0c8">Experimentation and analytics pipelines.</text>
+  <line x1="24" y1="180" x2="336" y2="180" stroke="#F5F7FA" stroke-opacity="0.12" stroke-dasharray="4 6"/>
+  <text class="mono" x="24" y="208" font-size="11" fill="#cdd8e8">StatPlay · DuckDB + scikit-learn studio</text>
+  <text class="mono" x="24" y="228" font-size="11" fill="#cdd8e8">Retensa retention modelling</text>
+</g>
+</svg>

@@ -1,4 +1,4 @@
-name: Build profile SVGs
+name: Build Spider-Verse profile assets
 
 on:
   push:
@@ -10,7 +10,6 @@ on:
       - ".github/workflows/build-assets.yml"
   workflow_dispatch:
   schedule:
-    # Refresh monthly in case generators or fonts change.
     - cron: "17 6 1 * *"
 
 permissions:
@@ -27,19 +26,24 @@ jobs:
           python-version: "3.12"
 
       - name: Install dependencies
-        run: pip install --quiet pillow numpy
+        run: pip install --quiet pillow numpy fonttools brotli
 
-      - name: Rebuild SVG assets
-        run: python tools/build_profile_svgs.py
+      - name: Rebuild Spider-Verse SVG assets
+        run: |
+          if [ -f tools/build_spiderverse.py ]; then
+            python tools/build_spiderverse.py
+          else
+            python tools/build_profile_svgs.py
+          fi
 
       - name: Commit regenerated assets when they change
         run: |
-          if git diff --quiet -- assets/*.svg; then
-            echo "No SVG changes"
+          if git diff --quiet -- assets/; then
+            echo "No asset changes"
             exit 0
           fi
           git config user.name "github-actions[bot]"
           git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
-          git add assets/*.svg
-          git commit -m "chore: regenerate profile SVG assets"
+          git add assets/
+          git commit -m "chore: regenerate Spider-Verse profile SVG assets"
           git push

@@ -1,11 +1,14 @@
 # Fonts
 
-Embedded WOFF files used by the profile SVGs:
+## Legacy (light theme)
+Instrument Serif, Geist, Geist Mono — SIL OFL 1.1
 
-| Family | Style | License |
+## Spider-Verse (`fonts/spider/`)
+| Family | File | License |
 | --- | --- | --- |
-| Instrument Serif | normal / italic | SIL Open Font License 1.1 |
-| Geist | normal | SIL Open Font License 1.1 |
-| Geist Mono | normal | SIL Open Font License 1.1 |
+| Bebas Neue | BebasNeue-Regular.woff | SIL OFL 1.1 |
+| Space Grotesk | SpaceGrotesk-Regular.woff | SIL OFL 1.1 |
+| Playfair Display Italic | PlayfairDisplay-Italic.woff | SIL OFL 1.1 |
+| JetBrains Mono | JetBrainsMono-Regular.woff | SIL OFL 1.1 |
 
-These faces are inlined as `data:font/woff;base64,...` inside the generated SVGs so GitHub’s image proxy can still render them.
+Embedded as `data:font/woff;base64,...` inside cinematic SVGs (hero, origin, footer, stats) so GitHub’s image proxy can render them.

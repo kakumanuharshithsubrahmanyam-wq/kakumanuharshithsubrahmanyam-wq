@@ -1,0 +1,17 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="320" viewBox="0 0 560 320" role="img" aria-label="NetScope">
+<title>NetScope</title>
+<style>text,tspan{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.display{font-family:Impact,Haettenschweiler,Arial Narrow Bold,sans-serif}.serif{font-family:Georgia,'Times New Roman',serif;font-style:italic}</style>
+<defs><linearGradient id="g4" x1="0" y1="1" x2="1" y2="0"><stop offset="0" stop-color="#04182e"/><stop offset="1" stop-color="#168BFF"/></linearGradient></defs>
+<rect width="560" height="320" fill="url(#g4)"/>
+<g stroke="#F5F7FA" stroke-opacity=".35" fill="none">
+          <path d="M300 70L400 130L360 230L460 280M400 130L470 60"/>
+        </g>
+        <g fill="#F5F7FA" fill-opacity=".7">
+          <circle cx="300" cy="70" r="5"/><circle cx="400" cy="130" r="7"/><circle cx="360" cy="230" r="5"/><circle cx="470" cy="60" r="4"/>
+        </g>
+
+<text class="mono" x="26" y="40" font-size="11" letter-spacing="2.4" fill="#F5F7FA" fill-opacity="0.85">UNIVERSE · PACKET-WEB</text>
+<text class="display" x="26" y="92" font-size="48" fill="#F5F7FA">NetScope</text>
+<text x="26" y="118" font-size="14" fill="rgba(245,247,250,0.92)">Desktop network packet sniffer and traffic analyzer</text><text x="26" y="138" font-size="14" fill="rgba(245,247,250,0.92)">with live capture, alerts and PCAP export.</text>
+<rect x="26" y="250" width="55" height="22" fill="rgba(7,20,38,0.55)" stroke="rgba(245,247,250,0.35)"/><text class="mono" x="34" y="265" font-size="11" fill="#F5F7FA">Python</text><rect x="87.2" y="250" width="62" height="22" fill="rgba(7,20,38,0.55)" stroke="rgba(245,247,250,0.35)"/><text class="mono" x="95.2" y="265" font-size="11" fill="#F5F7FA">PySide6</text><rect x="155.60000000000002" y="250" width="48" height="22" fill="rgba(7,20,38,0.55)" stroke="rgba(245,247,250,0.35)"/><text class="mono" x="163.60000000000002" y="265" font-size="11" fill="#F5F7FA">Scapy</text>
+</svg>

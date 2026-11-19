@@ -1,0 +1,19 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="560" height="320" viewBox="0 0 560 320" role="img" aria-label="AstraSOC (private)">
+<title>AstraSOC</title>
+<style>text,tspan{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.display{font-family:Impact,Haettenschweiler,Arial Narrow Bold,sans-serif}.serif{font-family:Georgia,'Times New Roman',serif;font-style:italic}</style>
+<defs><radialGradient id="g2" cx="80%" cy="20%" r="75%"><stop offset="0" stop-color="#0f3a78"/><stop offset="1" stop-color="#050d1a"/></radialGradient></defs>
+<rect width="560" height="320" fill="url(#g2)"/>
+<g fill="none" stroke="#168BFF" stroke-opacity=".4">
+          <circle cx="450" cy="150" r="40"/><circle cx="450" cy="150" r="80"/><circle cx="450" cy="150" r="120"/>
+          <path d="M450 150L540 70" stroke-opacity=".9" stroke-width="2"/>
+        </g>
+        <circle cx="510" cy="96" r="4" fill="#E62429"/>
+<g>
+  <rect x="430" y="22" width="104" height="28" fill="#071426" stroke="#168BFF"/>
+  <text class="mono" x="482" y="41" text-anchor="middle" font-size="11" letter-spacing="2" fill="#168BFF">PRIVATE</text>
+</g>
+<text class="mono" x="26" y="40" font-size="11" letter-spacing="2.4" fill="#F5F7FA" fill-opacity="0.85">UNIVERSE · SOC-ORBIT</text>
+<text class="display" x="26" y="92" font-size="48" fill="#F5F7FA">AstraSOC</text>
+<text x="26" y="118" font-size="14" fill="rgba(245,247,250,0.92)">AI-powered SOC platform with threat intelligence and</text><text x="26" y="138" font-size="14" fill="rgba(245,247,250,0.92)">incident-response automation. Dockerized</text><text x="26" y="158" font-size="14" fill="rgba(245,247,250,0.92)">FastAPI/TypeScript split.</text>
+<rect x="26" y="250" width="84" height="22" fill="rgba(7,20,38,0.55)" stroke="rgba(245,247,250,0.35)"/><text class="mono" x="34" y="265" font-size="11" fill="#F5F7FA">TypeScript</text><rect x="116.0" y="250" width="55" height="22" fill="rgba(7,20,38,0.55)" stroke="rgba(245,247,250,0.35)"/><text class="mono" x="124.0" y="265" font-size="11" fill="#F5F7FA">Python</text><rect x="177.2" y="250" width="55" height="22" fill="rgba(7,20,38,0.55)" stroke="rgba(245,247,250,0.35)"/><text class="mono" x="185.2" y="265" font-size="11" fill="#F5F7FA">Docker</text><rect x="238.39999999999998" y="250" width="62" height="22" fill="rgba(7,20,38,0.55)" stroke="rgba(245,247,250,0.35)"/><text class="mono" x="246.39999999999998" y="265" font-size="11" fill="#F5F7FA">FastAPI</text>
+</svg>

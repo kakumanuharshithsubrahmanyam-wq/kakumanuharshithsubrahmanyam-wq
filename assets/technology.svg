@@ -1,0 +1,38 @@
+<svg xmlns="http://www.w3.org/2000/svg" width="1180" height="420" viewBox="0 0 1180 420" role="img" aria-label="Technology Arsenal">
+<title>Technology Arsenal</title>
+<style>text,tspan{font-family:ui-sans-serif,system-ui,-apple-system,Segoe UI,sans-serif}.mono{font-family:ui-monospace,SFMono-Regular,Menlo,Consolas,monospace}.display{font-family:Impact,Haettenschweiler,Arial Narrow Bold,sans-serif}.serif{font-family:Georgia,'Times New Roman',serif;font-style:italic}</style>
+<rect width="1180" height="420" fill="#071426"/>
+<text x="40" y="36" font-family="'JetBrains Mono', monospace" font-size="12" letter-spacing="3" fill="#168BFF"><tspan fill="#E62429" font-weight="700">04</tspan> / GEAR</text>
+<text x="40" y="78" font-family="'Bebas Neue', Impact, sans-serif" font-size="40" fill="#F5F7FA">TECHNOLOGY ARSENAL</text>
+<g>
+  <rect x="40" y="100" width="340" height="140" fill="rgba(16,42,80,0.28)" stroke="rgba(245,247,250,0.12)"/>
+  <rect x="40" y="100" width="36" height="3" fill="#E62429"/>
+  <text x="56" y="132" font-family="'Bebas Neue', Impact, sans-serif" font-size="22" fill="#168BFF">Languages</text>
+  <rect x="56" y="148" width="58" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="64" y="165" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">Python</text><rect x="122.4" y="148" width="88" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="130.4" y="165" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">TypeScript</text><rect x="218.4" y="148" width="88" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="226.4" y="165" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">JavaScript</text><rect x="314.4" y="148" width="36" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="322.4" y="165" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">SQL</text><rect x="56" y="180" width="66" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="64" y="197" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">PLpgSQL</text>
+</g><g>
+  <rect x="410" y="100" width="340" height="140" fill="rgba(16,42,80,0.28)" stroke="rgba(245,247,250,0.12)"/>
+  <rect x="410" y="100" width="36" height="3" fill="#E62429"/>
+  <text x="426" y="132" font-family="'Bebas Neue', Impact, sans-serif" font-size="22" fill="#168BFF">Frameworks &amp; Backend</text>
+  <rect x="426" y="148" width="51" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="434" y="165" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">React</text><rect x="485.0" y="148" width="66" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="493.0" y="165" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">FastAPI</text><rect x="558.8" y="148" width="88" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="566.8" y="165" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">SQLAlchemy</text><rect x="654.8" y="148" width="44" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="662.8" y="165" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">Vite</text><rect x="426" y="180" width="58" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="434" y="197" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">pytest</text>
+</g><g>
+  <rect x="780" y="100" width="340" height="140" fill="rgba(16,42,80,0.28)" stroke="rgba(245,247,250,0.12)"/>
+  <rect x="780" y="100" width="36" height="3" fill="#E62429"/>
+  <text x="796" y="132" font-family="'Bebas Neue', Impact, sans-serif" font-size="22" fill="#168BFF">Data &amp; AI/ML</text>
+  <rect x="796" y="148" width="58" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="804" y="165" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">DuckDB</text><rect x="862.4" y="148" width="103" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="870.4" y="165" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">scikit-learn</text><rect x="973.2" y="148" width="58" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="981.2" y="165" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">Plotly</text><rect x="1039.6000000000001" y="148" width="36" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="1047.6000000000001" y="165" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">arq</text>
+</g><g>
+  <rect x="40" y="255" width="340" height="140" fill="rgba(16,42,80,0.28)" stroke="rgba(245,247,250,0.12)"/>
+  <rect x="40" y="255" width="36" height="3" fill="#E62429"/>
+  <text x="56" y="287" font-family="'Bebas Neue', Impact, sans-serif" font-size="22" fill="#168BFF">Security &amp; Networking</text>
+  <rect x="56" y="303" width="51" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="64" y="320" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">Scapy</text><rect x="115.0" y="303" width="66" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="123.0" y="320" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">PySide6</text><rect x="188.8" y="303" width="58" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="196.8" y="320" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">Docker</text>
+</g><g>
+  <rect x="410" y="255" width="340" height="140" fill="rgba(16,42,80,0.28)" stroke="rgba(245,247,250,0.12)"/>
+  <rect x="410" y="255" width="36" height="3" fill="#E62429"/>
+  <text x="426" y="287" font-family="'Bebas Neue', Impact, sans-serif" font-size="22" fill="#168BFF">Web3</text>
+  <rect x="426" y="303" width="81" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="434" y="320" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">ethers.js</text>
+</g><g>
+  <rect x="780" y="255" width="340" height="140" fill="rgba(16,42,80,0.28)" stroke="rgba(245,247,250,0.12)"/>
+  <rect x="780" y="255" width="36" height="3" fill="#E62429"/>
+  <text x="796" y="287" font-family="'Bebas Neue', Impact, sans-serif" font-size="22" fill="#168BFF">Dev &amp; Deploy</text>
+  <rect x="796" y="303" width="36" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="804" y="320" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">Git</text><rect x="840.2" y="303" width="118" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="848.2" y="320" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">Docker Compose</text><rect x="965.8000000000001" y="303" width="73" height="26" fill="rgba(245,247,250,0.05)" stroke="rgba(245,247,250,0.12)"/><text x="973.8000000000001" y="320" font-family="'JetBrains Mono', monospace" font-size="12" fill="#F5F7FA">Supabase</text>
+</g>
+</svg>
